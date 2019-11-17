@@ -45,28 +45,31 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Fancj的个人主页">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;index.html">
+  <meta name="description" content="layout&amp;lt;LinearLayout xmlns:android=&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;    xmlns:app=&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res-auto&quot;    xmlns:tools=&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;tools&quot;    android:la">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android tts语音的调用">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;17&#x2F;Android-tts%E8%AF%AD%E9%9F%B3%E7%9A%84%E8%B0%83%E7%94%A8&#x2F;index.html">
 <meta property="og:site_name" content="Fancj的个人主页">
+<meta property="og:description" content="layout&amp;lt;LinearLayout xmlns:android=&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;    xmlns:app=&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res-auto&quot;    xmlns:tools=&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;tools&quot;    android:la">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-17T09:23:43.642Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2019/11/17/Android-tts%E8%AF%AD%E9%9F%B3%E7%9A%84%E8%B0%83%E7%94%A8/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>Fancj的个人主页</title>
+  <title>Android tts语音的调用 | Fancj的个人主页</title>
   
 
 
@@ -162,10 +165,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/Android-tts%E8%AF%AD%E9%9F%B3%E7%9A%84%E8%B0%83%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -179,8 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/17/Android-tts%E8%AF%AD%E9%9F%B3%E7%9A%84%E8%B0%83%E7%94%A8/" class="post-title-link" itemprop="url">Android tts语音的调用</a>
+          Android tts语音的调用
         </h1>
 
         <div class="post-meta">
@@ -203,6 +205,18 @@
               <span class="leancloud-visitors-count"></span>
             </span>
   
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/11/17/Android-tts%E8%AF%AD%E9%9F%B3%E7%9A%84%E8%B0%83%E7%94%A8/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/11/17/Android-tts%E8%AF%AD%E9%9F%B3%E7%9A%84%E8%B0%83%E7%94%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
   
 
         </div>
@@ -214,18 +228,38 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="layout"><a href="#layout" class="headerlink" title="layout"></a>layout</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;LinearLayout xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    xmlns:app=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span><br><span class="line">    xmlns:tools=<span class="string">"http://schemas.android.com/tools"</span></span><br><span class="line">    android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">    android:layout_height=<span class="string">"match_parent"</span></span><br><span class="line">    android:orientation=<span class="string">"vertical"</span></span><br><span class="line">    tools:context=<span class="string">".MainActivity"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Button</span><br><span class="line">        android:id=<span class="string">"@+id/read_button"</span></span><br><span class="line">        android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">        android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">        android:text=<span class="string">"测试tts"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;EditText</span><br><span class="line">        android:id=<span class="string">"@+id/text_edittext"</span></span><br><span class="line">        android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">        android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">        android:hint=<span class="string">"输入测试文本"</span> /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+        <h2 id="layout"><a href="#layout" class="headerlink" title="layout"></a>layout</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;LinearLayout xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    xmlns:app=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span><br><span class="line">    xmlns:tools=<span class="string">"http://schemas.android.com/tools"</span></span><br><span class="line">    android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">    android:layout_height=<span class="string">"match_parent"</span></span><br><span class="line">    android:orientation=<span class="string">"vertical"</span></span><br><span class="line">    tools:context=<span class="string">".MainActivity"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Button</span><br><span class="line">        android:id=<span class="string">"@+id/read_button"</span></span><br><span class="line">        android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">        android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">        android:text=<span class="string">"测试tts"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;EditText</span><br><span class="line">        android:id=<span class="string">"@+id/text_edittext"</span></span><br><span class="line">        android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">        android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">        android:hint=<span class="string">"输入测试文本"</span> /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
 
 <h2 id="activity"><a href="#activity" class="headerlink" title="activity"></a>activity</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private EditText mTextEditText = null;</span><br><span class="line">    private Button mReadButton = null;</span><br><span class="line">    private TextToSpeech mTextToSpeech = null;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        mTextEditText = (EditText) findViewById(R.id.text_edittext);</span><br><span class="line">        mReadButton = (Button) findViewById(R.id.read_button);</span><br><span class="line"></span><br><span class="line">        //实例并初始化TTS对象</span><br><span class="line">        mTextToSpeech = new TextToSpeech(this, new TextToSpeech.<span class="function"><span class="title">OnInitListener</span></span>() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onInit(int status) &#123;</span><br><span class="line">                <span class="keyword">if</span> (status == TextToSpeech.SUCCESS) &#123;</span><br><span class="line">                    //设置朗读语言</span><br><span class="line">                    int supported = mTextToSpeech.setLanguage(Locale.CHINESE);</span><br><span class="line">                    <span class="keyword">if</span> ((supported != TextToSpeech.LANG_AVAILABLE) &amp;&amp; (supported != TextToSpeech.LANG_COUNTRY_AVAILABLE)) &#123;</span><br><span class="line">                        Toast.makeText(MainActivity.this, <span class="string">"不支持当前语言！"</span>, 1).show();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        //朗读监听按钮</span><br><span class="line">        mReadButton.setOnClickListener(new View.<span class="function"><span class="title">OnClickListener</span></span>() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View view) &#123;</span><br><span class="line">                //朗读EditText里的内容</span><br><span class="line">                mTextToSpeech.speak(mTextEditText.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
     </div>
 
     
     
     
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Fancj
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/11/17/Android-tts%E8%AF%AD%E9%9F%B3%E7%9A%84%E8%B0%83%E7%94%A8/" title="Android tts语音的调用">http://yoursite.com/2019/11/17/Android-tts%E8%AF%AD%E9%9F%B3%E7%9A%84%E8%B0%83%E7%94%A8/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
       </footer>
+    
   </article>
   
   
@@ -233,12 +267,10 @@
 
   </div>
 
-  
-
-
 
           </div>
           
+    <div class="comments" id="comments"></div>
 
         </div>
           
