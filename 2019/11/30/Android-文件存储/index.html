@@ -45,15 +45,15 @@
   };
 </script>
 
-  <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;文件存储是Android中最基本的一种数据存储方式，它不对存储的内容进行任何的格式化处理，所有数据都是原封不动地保存到文件当中的，因而它比较适合用于存储一些简单的文本数据或二进制数据。">
+  <meta name="description" content="文件存储是Android中最基本的一种数据存储方式，它不对存储的内容进行任何的格式化处理，所有数据都是原封不动地保存到文件当中的，因而它比较适合用于存储一些简单的文本数据或二进制数据。">
 <meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android-文件存储">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;30&#x2F;Android-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8&#x2F;index.html">
 <meta property="og:site_name" content="Fancj的个人主页">
-<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;文件存储是Android中最基本的一种数据存储方式，它不对存储的内容进行任何的格式化处理，所有数据都是原封不动地保存到文件当中的，因而它比较适合用于存储一些简单的文本数据或二进制数据。">
+<meta property="og:description" content="文件存储是Android中最基本的一种数据存储方式，它不对存储的内容进行任何的格式化处理，所有数据都是原封不动地保存到文件当中的，因而它比较适合用于存储一些简单的文本数据或二进制数据。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-30T11:04:16.829Z">
+<meta property="og:updated_time" content="2019-12-01T08:15:07.907Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/11/30/Android-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/">
@@ -197,10 +197,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-11-30 16:24:37 / 修改时间：19:04:16" itemprop="dateCreated datePublished" datetime="2019-11-30T16:24:37+08:00">2019-11-30</time>
+              <time title="创建时间：2019-11-30 16:24:37" itemprop="dateCreated datePublished" datetime="2019-11-30T16:24:37+08:00">2019-11-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-01 16:15:07" itemprop="dateModified" datetime="2019-12-01T16:15:07+08:00">2019-12-01</time>
+              </span>
 
           
             <span id="/2019/11/30/Android-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/" class="post-meta-item leancloud_visitors" data-flag-title="Android-文件存储" title="阅读次数">
@@ -234,15 +240,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;文件存储是Android中最基本的一种数据存储方式，它不对存储的内容进行任何的格式化处理，所有数据都是原封不动地保存到文件当中的，因而它比较适合用于存储一些简单的文本数据或二进制数据。<a id="more"></a>如果你想使用文件存储的方式来保存一些较为复杂的文本数据，就需要定义一套自己的格式规范，这样可以方便之后将数据从文件中重新解析出来。</p>
-<h2 id="layout"><a href="#layout" class="headerlink" title="layout"></a>layout</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;在线性布局中添加一个编辑框，用于输入文本内容。</p>
+        <p>文件存储是Android中最基本的一种数据存储方式，它不对存储的内容进行任何的格式化处理，所有数据都是原封不动地保存到文件当中的，因而它比较适合用于存储一些简单的文本数据或二进制数据。<a id="more"></a>如果你想使用文件存储的方式来保存一些较为复杂的文本数据，就需要定义一套自己的格式规范，这样可以方便之后将数据从文件中重新解析出来。</p>
+<h2 id="layout"><a href="#layout" class="headerlink" title="layout"></a>layout</h2><p>在线性布局中添加一个编辑框，用于输入文本内容。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;LinearLayout xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    xmlns:app=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span><br><span class="line">    xmlns:tools=<span class="string">"http://schemas.android.com/tools"</span></span><br><span class="line">    android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">    android:layout_height=<span class="string">"match_parent"</span></span><br><span class="line">    android:orientation=<span class="string">"vertical"</span></span><br><span class="line">    tools:context=<span class="string">".MainActivity"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;EditText</span><br><span class="line">        android:id=<span class="string">"@+id/edit"</span></span><br><span class="line">        android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">        android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">        android:hint=<span class="string">"在此处键入内容"</span> /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="activity"><a href="#activity" class="headerlink" title="activity"></a>activity</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;Context类中提供了一个openFileOutput()方法，可以用于将数据存储到指定的文件中。这个方法接收两个参数，第一个参数是文件名，在文件创建的时候使用的就是这个名称，注意这里指定的文件名不可以包含路径，因为所有的文件都是默认存储到/data/data/&lt;package name&gt;/files/目录下的。第二个参数是文件的操作模式，主要有两种模式可选，MODE_PRIVATE和MODE_APPEND。其中MODE_PRIVATE是默认的操作模式，表示当指定同样文件名的时候，所写入的内容将会覆盖原文件中的内容，而MODE_APPEND则表示如果该文件已存在，就往文件里面追加内容，不存在就创建新文件。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;类似于将数据存储到文件中，Context类中还提供了一个openFileInput()方法，用于从文件中读取数据。这个方法要比openFileOutput()简单一些，它只接收一个参数，即要读取的文件名，然后系统会自动到/data/data/&lt;package name&gt;/files/目录下去加载这个文件，并返回一个FileInputStream对象，得到了这个对象之后再通过Java流的方式就可以将数据读取出来了。</p>
+<h2 id="activity"><a href="#activity" class="headerlink" title="activity"></a>activity</h2><p>Context类中提供了一个openFileOutput()方法，可以用于将数据存储到指定的文件中。这个方法接收两个参数，第一个参数是文件名，在文件创建的时候使用的就是这个名称，注意这里指定的文件名不可以包含路径，因为所有的文件都是默认存储到/data/data/&lt;package name&gt;/files/目录下的。第二个参数是文件的操作模式，主要有两种模式可选，MODE_PRIVATE和MODE_APPEND。其中MODE_PRIVATE是默认的操作模式，表示当指定同样文件名的时候，所写入的内容将会覆盖原文件中的内容，而MODE_APPEND则表示如果该文件已存在，就往文件里面追加内容，不存在就创建新文件。</p>
+<p>类似于将数据存储到文件中，Context类中还提供了一个openFileInput()方法，用于从文件中读取数据。这个方法要比openFileOutput()简单一些，它只接收一个参数，即要读取的文件名，然后系统会自动到/data/data/&lt;package name&gt;/files/目录下去加载这个文件，并返回一个FileInputStream对象，得到了这个对象之后再通过Java流的方式就可以将数据读取出来了。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private EditText mEditText;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        mEditText = (EditText) findViewById(R.id.edit);</span><br><span class="line">        //读取文件中存储的内容</span><br><span class="line">        String inputText = Load();</span><br><span class="line">        <span class="keyword">if</span> (!TextUtils.isEmpty(inputText)) &#123;</span><br><span class="line">            mEditText.setText(inputText);</span><br><span class="line">            //将输入光标移动到文本的末尾</span><br><span class="line">            mEditText.setSelection(inputText.length());</span><br><span class="line">            Toast.makeText(this, <span class="string">"还原成功"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void <span class="function"><span class="title">onDestroy</span></span>() &#123;</span><br><span class="line">        super.onDestroy();</span><br><span class="line">        //获取编辑框中输入的内容</span><br><span class="line">        String inputText = mEditText.getText().toString();</span><br><span class="line">        //把输入的内容存储到文件名为data的文件中</span><br><span class="line">        Save(inputText);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void Save(String inputText) &#123;</span><br><span class="line">        FileOutputStream outputStream = null;</span><br><span class="line">        BufferedWriter writer = null;</span><br><span class="line">        try &#123;</span><br><span class="line">            outputStream = openFileOutput(<span class="string">"data"</span>, Context.MODE_PRIVATE);</span><br><span class="line">            writer = new BufferedWriter(new OutputStreamWriter(outputStream));</span><br><span class="line">            writer.write(inputText);</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                <span class="keyword">if</span> (writer != null) &#123;</span><br><span class="line">                    writer.close();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private String <span class="function"><span class="title">Load</span></span>() &#123;</span><br><span class="line">        FileInputStream inputStream = null;</span><br><span class="line">        BufferedReader reader = null;</span><br><span class="line">        StringBuilder content = new StringBuilder();</span><br><span class="line">        try &#123;</span><br><span class="line">            inputStream = openFileInput(<span class="string">"data"</span>);</span><br><span class="line">            reader = new BufferedReader(new InputStreamReader(inputStream));</span><br><span class="line">            String line = <span class="string">""</span>;</span><br><span class="line">            <span class="keyword">while</span> ((line = reader.readLine()) != null) &#123;</span><br><span class="line">                content.append(line);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; finally &#123;</span><br><span class="line">            <span class="keyword">if</span> (reader != null) &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    reader.close();</span><br><span class="line">                &#125; catch (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> content.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;注意，上述代码在对字符串进行非空判断的时候使用了TextUtils.isEmpty()方法，这是一个非常好用的方法，它可以一次性进行两种空值的判断。当传入的字符串等于null或者等于空字符串的时候，这个方法都会返回true，从而使得我们不需要先单独判断这两种空值再使用逻辑运算符连接起来了。</p>
+<p>注意，上述代码在对字符串进行非空判断的时候使用了TextUtils.isEmpty()方法，这是一个非常好用的方法，它可以一次性进行两种空值的判断。当传入的字符串等于null或者等于空字符串的时候，这个方法都会返回true，从而使得我们不需要先单独判断这两种空值再使用逻辑运算符连接起来了。</p>
 
     </div>
 
@@ -276,14 +282,17 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/23/Java-SQL%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" rel="next" title="Java-SQL的基本用法">
-                  <i class="fa fa-chevron-left"></i> Java-SQL的基本用法
+                <a href="/2019/11/23/Java-SQL%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" rel="next" title="Java-SQLite的基本用法">
+                  <i class="fa fa-chevron-left"></i> Java-SQLite的基本用法
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+                <a href="/2019/12/01/Android-SharedPreferences%E5%AD%98%E5%82%A8/" rel="prev" title="Android-SharedPreferences存储">
+                  Android-SharedPreferences存储 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
       </footer>
@@ -336,7 +345,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
