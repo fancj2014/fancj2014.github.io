@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="LitePal是一个开源的android库，允许开发人员非常容易地使用SQLite数据库。您可以在不编写sql语句的情况下完成大多数数据库操作，包括创建或升级表、对数据的增删改查操作等。">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LitePal的基本用法">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;15&#x2F;LitePal%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95&#x2F;index.html">
+<meta property="og:site_name" content="Fancj的个人主页">
+<meta property="og:description" content="LitePal是一个开源的android库，允许开发人员非常容易地使用SQLite数据库。您可以在不编写sql语句的情况下完成大多数数据库操作，包括创建或升级表、对数据的增删改查操作等。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-15T15:45:16.414Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/12/15/LitePal%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>LitePal的基本用法 | Fancj的个人主页</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fancj的个人主页</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">只是为了好玩</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/15/LitePal%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fancj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fancj的个人主页">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LitePal的基本用法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-15 19:35:18 / 修改时间：23:45:16" itemprop="dateCreated datePublished" datetime="2019-12-15T19:35:18+08:00">2019-12-15</time>
+            </span>
+
+          
+            <span id="/2019/12/15/LitePal%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" class="post-meta-item leancloud_visitors" data-flag-title="LitePal的基本用法" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">评论：</span>
+    
+    <a title="评论" href="/2019/12/15/LitePal%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/15/LitePal%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>LitePal是一个开源的android库，允许开发人员非常容易地使用SQLite数据库。您可以在不编写sql语句的情况下完成大多数数据库操作，包括创建或升级表、对数据的增删改查操作等。<a id="more"></a>LitePal的设置也非常简单，您可以在不到5分钟的时间内将其集成到项目中。</p>
+<h2 id="配置LitePal"><a href="#配置LitePal" class="headerlink" title="配置LitePal"></a>配置LitePal</h2><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><p>编辑app/build.gradle文件并添加以下依赖项:</p>
+<pre><code>dependencies {
+    implementation &apos;org.litepal.android:java:3.0.0&apos;
+}</code></pre><p>添加的这一行声明中，前面部分是固定的，最后的3.0.0是版本号的意思，最新的版本号可以到LitePal的项目主页上去查看。</p>
+<h3 id="配置litepal-xml"><a href="#配置litepal-xml" class="headerlink" title="配置litepal.xml"></a>配置litepal.xml</h3><p>添加好LitePal依赖后，接下来需要配置litepal.xml文件。右键单击app模块，选择New&gt;Folder&gt;Assets Folder菜单项。不勾选Change Folder Location 选项，保持Target Source Set的main选项不变，单击Finish按钮完成。然后在assets目录下再新建一个litepal.xml文件，接着编辑litepal.xml文件中的内容，如下所示：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;    
+&lt;litepal&gt;
+    &lt;!--
+        定义应用数据库的名称。
+        默        认情况下，每个数据库名称都应以.db结尾。
+        如        果你没有用.db结尾,
+        LitePal会自动为你加上后缀。
+        例如:
+        &lt;dbname value=&quot;demo&quot; /&gt;
+    --&gt;
+    &lt;dbname value=&quot;demo&quot; /&gt;
+
+    &lt;!--
+        定义数据库的版本。
+        每次你想要升级数据库，version标记会有帮助。
+        修改在mapping标记中定义的模型，然后版本值+1。
+        数据库升级将自动处理，无需担心。
+        例如
+        &lt;version value=&quot;1&quot; /&gt;
+    --&gt;
+    &lt;version value=&quot;1&quot; /&gt;
+
+    &lt;!--
+        使用mapping标记在列表中定义模型，
+        litepal将为每个映射类创建表。
+        在模型中定义的字段将映射到列中。
+        例如：
+        &lt;list&gt;
+            &lt;mapping class=&quot;com.test.model.Reader&quot; /&gt;
+            &lt;mapping class=&quot;com.test.model.Magazine&quot; /&gt;
+        &lt;/list&gt;
+    --&gt;
+    &lt;list&gt;
+    &lt;/list&gt;
+
+&lt;/litepal&gt;</code></pre><p>这是唯一的配置文件，属性很简单。</p>
+<h3 id="配置LitePalApplication"><a href="#配置LitePalApplication" class="headerlink" title="配置LitePalApplication"></a>配置LitePalApplication</h3><p>您不想一直传递上下文参数。为了简化api，只需配置android的manifest.xml中的LitePalApplication如下：</p>
+<pre><code>&lt;manifest&gt;
+    &lt;application
+        android:name=&quot;org.litepal.LitePalApplication&quot;
+        ...
+    &gt;
+        ...
+    &lt;/application&gt;
+&lt;/manifest&gt;</code></pre><p>当然，您可能有自己的Application，并且已经在这里进行了配置，例如：</p>
+<pre><code>&lt;manifest&gt;
+    &lt;application
+        android:name=&quot;com.example.MyOwnApplication&quot;
+        ...
+    &gt;
+        ...
+    &lt;/application&gt;
+&lt;/manifest&gt;</code></pre><p>没关系。LitePal仍然可以忍受。只需在自己的应用程序中调用LitePal.initialize（context）：</p>
+<pre><code>public class MyOwnApplication extends Application {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        LitePal.initialize(this);
+    }
+    ...
+}</code></pre><p>请确保尽早调用此方法。在应用程序的onCreate（）方法中就可以。并且始终记住使用应用程序上下文作为参数。不要将activity或service的任何实例用作参数，否则可能会发生内存泄漏。</p>
+<h2 id="基本方法"><a href="#基本方法" class="headerlink" title="基本方法"></a>基本方法</h2><h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><p>首先定义模型。例如，你有两个模型，专辑和歌曲。模型定义如下：</p>
+<pre><code>public class Album extends LitePalSupport {
+
+    @Column(unique = true, defaultValue = &quot;unknown&quot;)
+    private String name;
+    private float price;
+    private byte[] cover;
+    private List&lt;Song&gt; songs = new ArrayList&lt;Song&gt;();
+
+    //生成的getter和setter。
+    ...
+}
+
+public class Song extends LitePalSupport {
+
+    @Column(nullable = false)
+    private String name;
+    private int duration;
+    @Column(ignore = true)
+    private String uselessField;
+    private Album album;
+
+    // generated getters and setters.
+    ...
+}</code></pre><p>然后将这些模型添加到litepal.xml中的映射列表中：</p>
+<pre><code>&lt;list&gt;
+    &lt;mapping class=&quot;org.litepal.litepalsample.model.Album&quot; /&gt;
+    &lt;mapping class=&quot;org.litepal.litepalsample.model.Song&quot; /&gt;
+&lt;/list&gt;</code></pre><p>好了！下一次操作数据库时将生成这些表。例如，使用以下代码获取SQLiteDatabase：</p>
+<pre><code>SQLiteDatabase db = LitePal.getDatabase();</code></pre><p>现在，这些表将使用如下SQL语句自动生成：</p>
+<pre><code>CREATE TABLE album (
+    id integer primary key autoincrement,
+    name text unique default &apos;unknown&apos;,
+    price real,
+    cover blob
+);
+
+CREATE TABLE song (
+    id integer primary key autoincrement,
+    name text not null,
+    duration integer,
+    album_id integer
+);</code></pre><h3 id="升级表"><a href="#升级表" class="headerlink" title="升级表"></a>升级表</h3><p>在LitePal中升级表非常容易。只需修改模型即可：</p>
+<pre><code>public class Album extends LitePalSupport {
+
+    @Column(unique = true, defaultValue = &quot;unknown&quot;)
+    private String name;
+    @Column(ignore = true)
+    private float price;
+    private byte[] cover;
+    private Date releaseDate;
+    private List&lt;Song&gt; songs = new ArrayList&lt;Song&gt;();
+
+    // generated getters and setters.
+    ...
+}</code></pre><p>添加了releasedate字段，并将price字段注释为忽略。然后增加litepal.xml中的版本号：</p>
+<pre><code>&lt;version value=&quot;2&quot; /&gt;</code></pre><p>下一次操作数据库时将升级表。releasedate列将添加到专辑表中，原始价格列将被删除。全部的专辑表中的数据（删除的列除外）将被保留。</p>
+<h3 id="保存数据"><a href="#保存数据" class="headerlink" title="保存数据"></a>保存数据</h3><p>LitePal的保存api非常面向对象。从LitePalSupport继承的每个模型都将拥有save（）方法。</p>
+<pre><code>Album album = new Album();
+album.setName(&quot;album&quot;);
+album.setPrice(10.99f);
+album.setCover(getCoverImageBytes());
+album.save();
+
+Song song1 = new Song();
+song1.setName(&quot;song1&quot;);
+song1.setDuration(320);
+song1.setAlbum(album);
+song1.save();
+Song song2 = new Song();
+song2.setName(&quot;song2&quot;);
+song2.setDuration(356);
+song2.setAlbum(album);
+song2.save();</code></pre><p>这将把唱片集，歌曲1和歌曲2插入数据库。</p>
+<h3 id="更新数据"><a href="#更新数据" class="headerlink" title="更新数据"></a>更新数据</h3><p>最简单的方法是，使用save（）方法更新find（）找到的记录。</p>
+<pre><code>Album albumToUpdate = LitePal.find(Album.class, 1);
+albumToUpdate.setPrice(20.99f); //涨价
+albumToUpdate.save();</code></pre><p>从LitePalSupport继承的每个模型都有update（）和updateAll（）方法。您可以使用指定的id更新单个记录。</p>
+<pre><code>Album albumToUpdate = new Album();
+albumToUpdate.setPrice(20.99f); // raise the price
+albumToUpdate.update(id);</code></pre><p>或者可以使用where条件更新多个记录。</p>
+<pre><code>Album albumToUpdate = new Album();
+albumToUpdate.setPrice(20.99f); //涨价
+albumToUpdate.updateAll(&quot;name = ?&quot;, &quot;album&quot;);</code></pre><h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><p>你可以使用LitePal中的delete（）方法删除单个记录。</p>
+<pre><code>LitePal.delete(Song.class, id);</code></pre><p>或者使用LitePal中的deleteAll（）方法删除多个记录。</p>
+<pre><code>LitePal.deleteAll(Song.class, &quot;duration &gt; ?&quot; , &quot;350&quot;);</code></pre><h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><p>从具有指定id的歌曲表中查找单个记录。</p>
+<pre><code>Song song = LitePal.find(Song.class, id);</code></pre><p>从歌曲表中查找所有唱片。</p>
+<pre><code>List&lt;Song&gt; allSongs = LitePal.findAll(Song.class);</code></pre><p>复杂查询。</p>
+<pre><code>List&lt;Song&gt; songs = LitePal.where(&quot;name like ? and duration &lt; ?&quot;, &quot;song%&quot;, &quot;200&quot;).order(&quot;duration&quot;).find(Song.class);</code></pre><h2 id="具体演示"><a href="#具体演示" class="headerlink" title="具体演示"></a>具体演示</h2><h3 id="build-gradle-Module-app"><a href="#build-gradle-Module-app" class="headerlink" title="build.gradle (Module: app)"></a>build.gradle (Module: app)</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">'org.litepal.android:java:3.0.0'</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="litepal-xml"><a href="#litepal-xml" class="headerlink" title="litepal.xml"></a>litepal.xml</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</span><br><span class="line"></span><br><span class="line">&lt;litepal&gt;</span><br><span class="line">    &lt;dbname value=<span class="string">"BookStore"</span>&gt;&lt;/dbname&gt;</span><br><span class="line">    &lt;version value=<span class="string">"2"</span>&gt;&lt;/version&gt;</span><br><span class="line">    &lt;list&gt;</span><br><span class="line">        &lt;mapping class=<span class="string">"com.fancj.litepaltest.Book"</span>&gt;&lt;/mapping&gt;</span><br><span class="line">        &lt;mapping class=<span class="string">"com.fancj.litepaltest.Category"</span>&gt;&lt;/mapping&gt;</span><br><span class="line">    &lt;/list&gt;</span><br><span class="line">&lt;/litepal&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="AndroidManifest-xml"><a href="#AndroidManifest-xml" class="headerlink" title="AndroidManifest.xml"></a>AndroidManifest.xml</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;application</span><br><span class="line">    android:name=<span class="string">"org.litepal.LitePalApplication"</span></span><br><span class="line">    ...</span><br><span class="line">&lt;/application&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="activity-main-xml"><a href="#activity-main-xml" class="headerlink" title="activity_main.xml"></a>activity_main.xml</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</span><br><span class="line"></span><br><span class="line">&lt;LinearLayout xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    xmlns:app=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span><br><span class="line">    xmlns:tools=<span class="string">"http://schemas.android.com/tools"</span></span><br><span class="line">    android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">    android:layout_height=<span class="string">"match_parent"</span></span><br><span class="line">    android:orientation=<span class="string">"vertical"</span></span><br><span class="line">    tools:context=<span class="string">".MainActivity"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Button</span><br><span class="line">        android:id=<span class="string">"@+id/create_database_button"</span></span><br><span class="line">        android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">        android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">        android:text=<span class="string">"创建数据库"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Button</span><br><span class="line">        android:id=<span class="string">"@+id/add_data_button"</span></span><br><span class="line">        android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">        android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">        android:text=<span class="string">"添加数据"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Button</span><br><span class="line">        android:id=<span class="string">"@+id/update_data_button"</span></span><br><span class="line">        android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">        android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">        android:text=<span class="string">"更新数据"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Button</span><br><span class="line">        android:id=<span class="string">"@+id/delete_data_button"</span></span><br><span class="line">        android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">        android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">        android:text=<span class="string">"删除数据"</span> /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Button</span><br><span class="line">        android:id=<span class="string">"@+id/query_data_button"</span></span><br><span class="line">        android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">        android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">        android:text=<span class="string">"查询数据"</span> /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Book表"><a href="#Book表" class="headerlink" title="Book表"></a>Book表</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">public class Book extends LitePalSupport &#123;</span><br><span class="line"></span><br><span class="line">    private int mId;</span><br><span class="line">    private String mAuthor;</span><br><span class="line">    private double mPrice;</span><br><span class="line">    private int mPages;</span><br><span class="line">    private String mName;</span><br><span class="line">    private String mPress;</span><br><span class="line"></span><br><span class="line">    public int <span class="function"><span class="title">getId</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> mId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(int id) &#123;</span><br><span class="line">        mId = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String <span class="function"><span class="title">getAuthor</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> mAuthor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setAuthor(String author) &#123;</span><br><span class="line">        mAuthor = author;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public double <span class="function"><span class="title">getPrice</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> mPrice;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPrice(double price) &#123;</span><br><span class="line">        mPrice = price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int <span class="function"><span class="title">getPages</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> mPages;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPages(int pages) &#123;</span><br><span class="line">        mPages = pages;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String <span class="function"><span class="title">getName</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> mName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setName(String name) &#123;</span><br><span class="line">        mName = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String <span class="function"><span class="title">getPress</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> mPress;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setPress(String press) &#123;</span><br><span class="line">        mPress = press;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Category表"><a href="#Category表" class="headerlink" title="Category表"></a>Category表</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">public class Category &#123;</span><br><span class="line"></span><br><span class="line">    private int mId;</span><br><span class="line">    private String mCategoryName;</span><br><span class="line">    private int mCategoryCode;</span><br><span class="line"></span><br><span class="line">    public int <span class="function"><span class="title">getId</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> mId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(int id) &#123;</span><br><span class="line">        mId = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String <span class="function"><span class="title">getCategoryName</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> mCategoryName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setCategoryName(String categoryName) &#123;</span><br><span class="line">        mCategoryName = categoryName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int <span class="function"><span class="title">getCategoryCode</span></span>() &#123;</span><br><span class="line">        <span class="built_in">return</span> mCategoryCode;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setCategoryCode(int categoryCode) &#123;</span><br><span class="line">        mCategoryCode = categoryCode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="MainActivity-java"><a href="#MainActivity-java" class="headerlink" title="MainActivity.java"></a>MainActivity.java</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        final Button createButton = (Button) findViewById(R.id.create_database_button);</span><br><span class="line">        createButton.setOnClickListener(new View.<span class="function"><span class="title">OnClickListener</span></span>() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View view) &#123;</span><br><span class="line">                //创建数据库</span><br><span class="line">                LitePal.getDatabase();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        final Button addButton = (Button) findViewById(R.id.add_data_button);</span><br><span class="line">        addButton.setOnClickListener(new View.<span class="function"><span class="title">OnClickListener</span></span>() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View view) &#123;</span><br><span class="line">                Book book = new Book();</span><br><span class="line">                book.setName(<span class="string">"The Da Vinci Code"</span>);</span><br><span class="line">                book.setAuthor(<span class="string">"Dan Brown"</span>);</span><br><span class="line">                book.setPages(454);</span><br><span class="line">                book.setPrice(16.96);</span><br><span class="line">                book.setPress(<span class="string">"Unknow"</span>);</span><br><span class="line">                book.save();</span><br><span class="line">                Book book1 = new Book();</span><br><span class="line">                book1.setName(<span class="string">"The Lost Symbol"</span>);</span><br><span class="line">                book1.setAuthor(<span class="string">"Dan Brown"</span>);</span><br><span class="line">                book1.setPages(510);</span><br><span class="line">                book1.setPrice(19.95);</span><br><span class="line">                book1.setPress(<span class="string">"Unknow"</span>);</span><br><span class="line">                book1.save();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        final Button updateButton = (Button) findViewById(R.id.update_data_button);</span><br><span class="line">        updateButton.setOnClickListener(new View.<span class="function"><span class="title">OnClickListener</span></span>() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View view) &#123;</span><br><span class="line">                Book book = new Book();</span><br><span class="line">                book.setPrice(14.95);</span><br><span class="line">                book.setPress(<span class="string">"Anchor"</span>);</span><br><span class="line">                book.updateAll(<span class="string">"mName = ? and mAuthor = ?"</span>, <span class="string">"The Lost Symbol"</span>, <span class="string">"Dan Brown"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        final Button deleteButton = (Button) findViewById(R.id.delete_data_button);</span><br><span class="line">        deleteButton.setOnClickListener(new View.<span class="function"><span class="title">OnClickListener</span></span>() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View view) &#123;</span><br><span class="line">                LitePal.deleteAll(Book.class, <span class="string">"mPrice &lt; ?"</span>, <span class="string">"15"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        final Button queryButton = (Button) findViewById(R.id.query_data_button);</span><br><span class="line">        queryButton.setOnClickListener(new View.<span class="function"><span class="title">OnClickListener</span></span>() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View view) &#123;</span><br><span class="line">                List&lt;Book&gt; books = LitePal.findAll(Book.class);</span><br><span class="line">                <span class="keyword">for</span> (Book book : books) &#123;</span><br><span class="line">                    Log.d(<span class="string">"MainActivity"</span>, book.getName() + <span class="string">" "</span> + book.getAuthor() + <span class="string">" "</span> + book.getPages() + <span class="string">" "</span> + book.getPrice() + <span class="string">" "</span> + book.getPress());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>本文部分内容节选自<a href="https://github.com/LitePalFramework/LitePal" target="_blank" rel="noopener">LitePal的GitHub主页</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Fancj
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/12/15/LitePal%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" title="LitePal的基本用法">http://yoursite.com/2019/12/15/LitePal%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/12/01/Android-SharedPreferences%E5%AD%98%E5%82%A8/" rel="next" title="Android-SharedPreferences存储">
+                  <i class="fa fa-chevron-left"></i> Android-SharedPreferences存储
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Fancj</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fancj</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: false,
+    appId: 'OTcKQFFSeYVygR2aMgqGVGQ4-gzGzoHsz',
+    appKey: '2ik6hau7hgCUiQzzLTPKkx2q',
+    placeholder: "评论一番吧",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
