@@ -53,7 +53,7 @@
 <meta property="og:site_name" content="Fancj的个人主页">
 <meta property="og:description" content="LitePal是一个开源的android库，允许开发人员非常容易地使用SQLite数据库。您可以在不编写sql语句的情况下完成大多数数据库操作，包括创建或升级表、对数据的增删改查操作等。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-15T15:45:16.414Z">
+<meta property="og:updated_time" content="2020-01-11T05:36:24.692Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/15/LitePal%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">
@@ -197,10 +197,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-15 19:35:18 / 修改时间：23:45:16" itemprop="dateCreated datePublished" datetime="2019-12-15T19:35:18+08:00">2019-12-15</time>
+              <time title="创建时间：2019-12-15 19:35:18" itemprop="dateCreated datePublished" datetime="2019-12-15T19:35:18+08:00">2019-12-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-11 13:36:24" itemprop="dateModified" datetime="2020-01-11T13:36:24+08:00">2020-01-11</time>
+              </span>
 
           
             <span id="/2019/12/15/LitePal%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" class="post-meta-item leancloud_visitors" data-flag-title="LitePal的基本用法" title="阅读次数">
@@ -404,7 +410,7 @@ albumToUpdate.updateAll(&quot;name = ?&quot;, &quot;album&quot;);</code></pre><h
 
 <h3 id="MainActivity-java"><a href="#MainActivity-java" class="headerlink" title="MainActivity.java"></a>MainActivity.java</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        final Button createButton = (Button) findViewById(R.id.create_database_button);</span><br><span class="line">        createButton.setOnClickListener(new View.<span class="function"><span class="title">OnClickListener</span></span>() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View view) &#123;</span><br><span class="line">                //创建数据库</span><br><span class="line">                LitePal.getDatabase();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        final Button addButton = (Button) findViewById(R.id.add_data_button);</span><br><span class="line">        addButton.setOnClickListener(new View.<span class="function"><span class="title">OnClickListener</span></span>() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View view) &#123;</span><br><span class="line">                Book book = new Book();</span><br><span class="line">                book.setName(<span class="string">"The Da Vinci Code"</span>);</span><br><span class="line">                book.setAuthor(<span class="string">"Dan Brown"</span>);</span><br><span class="line">                book.setPages(454);</span><br><span class="line">                book.setPrice(16.96);</span><br><span class="line">                book.setPress(<span class="string">"Unknow"</span>);</span><br><span class="line">                book.save();</span><br><span class="line">                Book book1 = new Book();</span><br><span class="line">                book1.setName(<span class="string">"The Lost Symbol"</span>);</span><br><span class="line">                book1.setAuthor(<span class="string">"Dan Brown"</span>);</span><br><span class="line">                book1.setPages(510);</span><br><span class="line">                book1.setPrice(19.95);</span><br><span class="line">                book1.setPress(<span class="string">"Unknow"</span>);</span><br><span class="line">                book1.save();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        final Button updateButton = (Button) findViewById(R.id.update_data_button);</span><br><span class="line">        updateButton.setOnClickListener(new View.<span class="function"><span class="title">OnClickListener</span></span>() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View view) &#123;</span><br><span class="line">                Book book = new Book();</span><br><span class="line">                book.setPrice(14.95);</span><br><span class="line">                book.setPress(<span class="string">"Anchor"</span>);</span><br><span class="line">                book.updateAll(<span class="string">"mName = ? and mAuthor = ?"</span>, <span class="string">"The Lost Symbol"</span>, <span class="string">"Dan Brown"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        final Button deleteButton = (Button) findViewById(R.id.delete_data_button);</span><br><span class="line">        deleteButton.setOnClickListener(new View.<span class="function"><span class="title">OnClickListener</span></span>() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View view) &#123;</span><br><span class="line">                LitePal.deleteAll(Book.class, <span class="string">"mPrice &lt; ?"</span>, <span class="string">"15"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        final Button queryButton = (Button) findViewById(R.id.query_data_button);</span><br><span class="line">        queryButton.setOnClickListener(new View.<span class="function"><span class="title">OnClickListener</span></span>() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View view) &#123;</span><br><span class="line">                List&lt;Book&gt; books = LitePal.findAll(Book.class);</span><br><span class="line">                <span class="keyword">for</span> (Book book : books) &#123;</span><br><span class="line">                    Log.d(<span class="string">"MainActivity"</span>, book.getName() + <span class="string">" "</span> + book.getAuthor() + <span class="string">" "</span> + book.getPages() + <span class="string">" "</span> + book.getPrice() + <span class="string">" "</span> + book.getPress());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>本文部分内容节选自<a href="https://github.com/LitePalFramework/LitePal" target="_blank" rel="noopener">LitePal的GitHub主页</a></p>
+<p>本文部分内容节选并翻译自<a href="https://github.com/LitePalFramework/LitePal" target="_blank" rel="noopener">LitePal的GitHub主页</a>。更多内容请到官方主页上查看。</p>
 
     </div>
 
@@ -446,6 +452,9 @@ albumToUpdate.updateAll(&quot;name = ?&quot;, &quot;album&quot;);</code></pre><h
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+                <a href="/2020/01/11/androidx%E4%B8%8Eandroid-support%E5%B8%B8%E7%94%A8%E6%98%A0%E5%B0%84%E8%A1%A8/" rel="prev" title="androidx与android.support常用映射表">
+                  androidx与android.support常用映射表 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
       </footer>
@@ -498,7 +507,7 @@ albumToUpdate.updateAll(&quot;name = ?&quot;, &quot;album&quot;);</code></pre><h
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -530,7 +539,7 @@ albumToUpdate.updateAll(&quot;name = ?&quot;, &quot;album&quot;);</code></pre><h
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
