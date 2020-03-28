@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="五子棋是全国智力运动会竞技项目之一，是一种两人对弈的纯策略型棋类游戏。通常双方分别使用黑白两色的棋子，下在棋盘直线与横线的交叉点上，先形成五子连线者获胜。">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="控制台五子棋">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;21&#x2F;%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%BA%94%E5%AD%90%E6%A3%8B&#x2F;index.html">
+<meta property="og:site_name" content="Fancj的主页">
+<meta property="og:description" content="五子棋是全国智力运动会竞技项目之一，是一种两人对弈的纯策略型棋类游戏。通常双方分别使用黑白两色的棋子，下在棋盘直线与横线的交叉点上，先形成五子连线者获胜。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-28T07:01:15.521Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/21/%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%BA%94%E5%AD%90%E6%A3%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>控制台五子棋 | Fancj的主页</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fancj的主页</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">只是为了好玩</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/21/%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%BA%94%E5%AD%90%E6%A3%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fancj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fancj的主页">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          控制台五子棋
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-21 09:18:33" itemprop="dateCreated datePublished" datetime="2020-03-21T09:18:33+08:00">2020-03-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-28 15:01:15" itemprop="dateModified" datetime="2020-03-28T15:01:15+08:00">2020-03-28</time>
+              </span>
+
+          
+            <span id="/2020/03/21/%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%BA%94%E5%AD%90%E6%A3%8B/" class="post-meta-item leancloud_visitors" data-flag-title="控制台五子棋" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">评论：</span>
+    
+    <a title="评论" href="/2020/03/21/%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%BA%94%E5%AD%90%E6%A3%8B/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/21/%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%BA%94%E5%AD%90%E6%A3%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>五子棋是全国智力运动会竞技项目之一，是一种两人对弈的纯策略型棋类游戏。通常双方分别使用黑白两色的棋子，下在棋盘直线与横线的交叉点上，先形成五子连线者获胜。<a id="more"></a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class Gobang &#123;</span><br><span class="line"></span><br><span class="line">    private String black = <span class="string">"黑"</span>;</span><br><span class="line">    private String white = <span class="string">"白"</span>;</span><br><span class="line">    private boolean alternate = <span class="literal">true</span>;</span><br><span class="line">    private String[][] checkerBoard = new String[15][15];</span><br><span class="line">    private int xLength = checkerBoard[0].length;</span><br><span class="line">    private int yLength = checkerBoard.length;</span><br><span class="line">    private boolean over;</span><br><span class="line">    private Scanner scanner = new Scanner(System.in);</span><br><span class="line"></span><br><span class="line">    private void <span class="function"><span class="title">InitCheckerBoard</span></span>() &#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; yLength; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (int j = 0; j &lt; xLength; j++) &#123;</span><br><span class="line">                checkerBoard[i][j] = <span class="string">"空"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        PrintCheckerBoard();</span><br><span class="line">        System.out.println(<span class="string">"请输入0-14之间的整数坐标，其他键退出，回车确认。"</span>);</span><br><span class="line">        PlayChess();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void <span class="function"><span class="title">PrintCheckerBoard</span></span>() &#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; yLength; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (int j = 0; j &lt; xLength; j++) &#123;</span><br><span class="line">                System.out.print(checkerBoard[i][j]);</span><br><span class="line">                <span class="keyword">if</span> (j == xLength - 1) &#123;</span><br><span class="line">                    System.out.print(<span class="string">"\n"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void <span class="function"><span class="title">PlayChess</span></span>() &#123;</span><br><span class="line">        <span class="keyword">if</span> (scanner.hasNextInt()) &#123;</span><br><span class="line">            int x = scanner.nextInt();</span><br><span class="line">            int y = scanner.nextInt();</span><br><span class="line">            <span class="keyword">if</span> (x &gt; xLength - 1 || x &lt; 0 || y &gt; yLength - 1 || y &lt; 0) &#123;</span><br><span class="line">                System.out.println(<span class="string">"超出坐标范围！请重新输入。"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (checkerBoard[y][x] == black || checkerBoard[y][x] == white) &#123;</span><br><span class="line">                System.out.println(<span class="string">"坐标已被其他棋子占用，请重新输入。"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (alternate) &#123;</span><br><span class="line">                checkerBoard[y][x] = black;</span><br><span class="line">                alternate = !alternate;</span><br><span class="line">                System.out.printf(<span class="string">"黑方x%dy%d\n"</span>, x, y);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!alternate) &#123;</span><br><span class="line">                checkerBoard[y][x] = white;</span><br><span class="line">                alternate = !alternate;</span><br><span class="line">                System.out.printf(<span class="string">"白方x%dy%d\n"</span>, x, y);</span><br><span class="line">            &#125;</span><br><span class="line">            PrintCheckerBoard();</span><br><span class="line">            Judge();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Destroy();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void <span class="function"><span class="title">Judge</span></span>() &#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; yLength &amp;&amp; !over; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (int j = 0; j &lt; xLength - 4; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (checkerBoard[i][j] == black &amp;&amp; checkerBoard[i][j + 1] == black &amp;&amp; checkerBoard[i][j + 2] == black</span><br><span class="line">                        &amp;&amp; checkerBoard[i][j + 3] == black &amp;&amp; checkerBoard[i][j + 4] == black) &#123;</span><br><span class="line">                    over = !over;</span><br><span class="line">                    <span class="built_in">break</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (checkerBoard[i][j] == white &amp;&amp; checkerBoard[i][j + 1] == white</span><br><span class="line">                        &amp;&amp; checkerBoard[i][j + 2] == white &amp;&amp; checkerBoard[i][j + 3] == white</span><br><span class="line">                        &amp;&amp; checkerBoard[i][j + 4] == white) &#123;</span><br><span class="line">                    over = !over;</span><br><span class="line">                    <span class="built_in">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; yLength - 4 &amp;&amp; !over; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (int j = 0; j &lt; xLength; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (checkerBoard[i][j] == black &amp;&amp; checkerBoard[i + 1][j] == black &amp;&amp; checkerBoard[i + 2][j] == black</span><br><span class="line">                        &amp;&amp; checkerBoard[i + 3][j] == black &amp;&amp; checkerBoard[i + 4][j] == black) &#123;</span><br><span class="line">                    over = !over;</span><br><span class="line">                    <span class="built_in">break</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (checkerBoard[i][j] == white &amp;&amp; checkerBoard[i + 1][j] == white</span><br><span class="line">                        &amp;&amp; checkerBoard[i + 2][j] == white &amp;&amp; checkerBoard[i + 3][j] == white</span><br><span class="line">                        &amp;&amp; checkerBoard[i + 4][j] == white) &#123;</span><br><span class="line">                    over = !over;</span><br><span class="line">                    <span class="built_in">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (int i = 0; i &lt; yLength - 4 &amp;&amp; !over; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (int j = 0; j &lt; xLength - 4; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (checkerBoard[i][j] == black &amp;&amp; checkerBoard[i + 1][j + 1] == black</span><br><span class="line">                        &amp;&amp; checkerBoard[i + 2][j + 2] == black &amp;&amp; checkerBoard[i + 3][j + 3] == black</span><br><span class="line">                        &amp;&amp; checkerBoard[i + 4][j + 4] == black) &#123;</span><br><span class="line">                    over = !over;</span><br><span class="line">                    <span class="built_in">break</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (checkerBoard[i][j] == white &amp;&amp; checkerBoard[i + 1][j + 1] == white</span><br><span class="line">                        &amp;&amp; checkerBoard[i + 2][j + 2] == white &amp;&amp; checkerBoard[i + 3][j + 3] == white</span><br><span class="line">                        &amp;&amp; checkerBoard[i + 4][j + 4] == white) &#123;</span><br><span class="line">                    over = !over;</span><br><span class="line">                    <span class="built_in">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (int i = 4; i &lt; yLength &amp;&amp; !over; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (int j = 0; j &lt; xLength - 4; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (checkerBoard[i][j] == black &amp;&amp; checkerBoard[i - 1][j + 1] == black</span><br><span class="line">                        &amp;&amp; checkerBoard[i - 2][j + 2] == black &amp;&amp; checkerBoard[i - 3][j + 3] == black</span><br><span class="line">                        &amp;&amp; checkerBoard[i - 4][j + 4] == black) &#123;</span><br><span class="line">                    over = !over;</span><br><span class="line">                    <span class="built_in">break</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (checkerBoard[i][j] == white &amp;&amp; checkerBoard[i - 1][j + 1] == white</span><br><span class="line">                        &amp;&amp; checkerBoard[i - 2][j + 2] == white &amp;&amp; checkerBoard[i - 3][j + 3] == white</span><br><span class="line">                        &amp;&amp; checkerBoard[i - 4][j + 4] == white) &#123;</span><br><span class="line">                    over = !over;</span><br><span class="line">                    <span class="built_in">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (over) &#123;</span><br><span class="line">            System.out.println(<span class="string">"游戏结束。"</span> + ((alternate) ? <span class="string">"白方胜利!"</span> : <span class="string">"黑方胜利!"</span>));</span><br><span class="line">            Destroy();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            PlayChess();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void <span class="function"><span class="title">Destroy</span></span>() &#123;</span><br><span class="line">        System.out.println(<span class="string">"欢迎下次光临。"</span>);</span><br><span class="line">        scanner.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Gobang gobang = new Gobang();</span><br><span class="line">        gobang.InitCheckerBoard();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Fancj
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/03/21/%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%BA%94%E5%AD%90%E6%A3%8B/" title="控制台五子棋">http://yoursite.com/2020/03/21/%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%BA%94%E5%AD%90%E6%A3%8B/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/02/23/%E4%BD%BF%E7%94%A8Jsoup%E6%8A%93%E5%8F%96%E4%BA%89%E6%B8%A1%E8%AE%BA%E5%9D%9B%E7%9A%84%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9/" rel="next" title="使用Jsoup抓取争渡论坛的网页内容">
+                  <i class="fa fa-chevron-left"></i> 使用Jsoup抓取争渡论坛的网页内容
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Fancj</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fancj</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: false,
+    appId: 'OTcKQFFSeYVygR2aMgqGVGQ4-gzGzoHsz',
+    appKey: '2ik6hau7hgCUiQzzLTPKkx2q',
+    placeholder: "说点什么...",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
