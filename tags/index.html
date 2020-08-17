@@ -340,32 +340,5 @@
 
   
 
-
-<script>
-NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
-  var GUEST = ['nick', 'mail', 'link'];
-  var guest = 'nick,mail,link';
-  guest = guest.split(',').filter(item => {
-    return GUEST.includes(item);
-  });
-  new Valine({
-    el: '#comments',
-    verify: true,
-    notify: false,
-    appId: 'OTcKQFFSeYVygR2aMgqGVGQ4-gzGzoHsz',
-    appKey: '2ik6hau7hgCUiQzzLTPKkx2q',
-    placeholder: "说点什么...",
-    avatar: 'mm',
-    meta: guest,
-    pageSize: '10' || 10,
-    visitor: true,
-    lang: '' || 'zh-cn',
-    path: location.pathname,
-    recordIP: false,
-    serverURLs: ''
-  });
-}, window.Valine);
-</script>
-
 </body>
 </html>
