@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="为了让包括残障人士、老年人在内的所有人都能无障碍的使用Android应用，在开发应用的过程中应当遵循一些原则，以下讲解几个我们在为一些大厂APP提供无障碍支持时常遇到的问题，只要解决以下12条铁规，那你的应用虽说达不到易用，但至少是可用的。对于后续全面无障碍化也只需投入很小的成本即可实现。">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android无障碍应用开发铁规12条">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;07&#x2F;07&#x2F;Android%E6%97%A0%E9%9A%9C%E7%A2%8D%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E9%93%81%E8%A7%8412%E6%9D%A1&#x2F;index.html">
+<meta property="og:site_name" content="Fancj的主页">
+<meta property="og:description" content="为了让包括残障人士、老年人在内的所有人都能无障碍的使用Android应用，在开发应用的过程中应当遵循一些原则，以下讲解几个我们在为一些大厂APP提供无障碍支持时常遇到的问题，只要解决以下12条铁规，那你的应用虽说达不到易用，但至少是可用的。对于后续全面无障碍化也只需投入很小的成本即可实现。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-17T08:18:54.776Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/07/Android%E6%97%A0%E9%9A%9C%E7%A2%8D%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E9%93%81%E8%A7%8412%E6%9D%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Android无障碍应用开发铁规12条 | Fancj的主页</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fancj的主页</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">只是为了好玩</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/07/Android%E6%97%A0%E9%9A%9C%E7%A2%8D%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E9%93%81%E8%A7%8412%E6%9D%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fancj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fancj的主页">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android无障碍应用开发铁规12条
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-07 15:22:55" itemprop="dateCreated datePublished" datetime="2020-07-07T15:22:55+08:00">2020-07-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-17 16:18:54" itemprop="dateModified" datetime="2020-08-17T16:18:54+08:00">2020-08-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>为了让包括残障人士、老年人在内的所有人都能无障碍的使用Android应用，在开发应用的过程中应当遵循一些原则，以下讲解几个我们在为一些大厂APP提供无障碍支持时常遇到的问题，只要解决以下12条铁规，那你的应用虽说达不到易用，但至少是可用的。对于后续全面无障碍化也只需投入很小的成本即可实现。<a id="more"></a></p>
+<h2 id="1-Android设计无障碍指南"><a href="#1-Android设计无障碍指南" class="headerlink" title="1   Android设计无障碍指南"></a>1   Android设计无障碍指南</h2><p>在创建布局前，复查和遵守Android设计指南中提供的无障碍方案。让你的Android应用界面布局满足无障碍设计指南。</p>
+<h2 id="2-框架提供的控件"><a href="#2-框架提供的控件" class="headerlink" title="2   框架提供的控件"></a>2   框架提供的控件</h2><p>尽可能使用Android标准用户界面控件，这些控件默认提供无障碍支持，如Button（按钮）、EditText（编辑框）等。</p>
+<h2 id="3-描述用户界面控件"><a href="#3-描述用户界面控件" class="headerlink" title="3   描述用户界面控件"></a>3   描述用户界面控件</h2><p>为没有视觉文本的用户界面组件提供内容描述，特别是图像按钮（ImageButton），图像视图（ImageView）和复选框（CheckBox）组件。使用XML布局属性android:contentDescription或在代码中使用setContentDescription(CharSequence)方法来为无障碍服务提供内容描述。当无障碍服务访问到提供了内容描述的非文本控件时会把内容描述属性报告给用户，例如屏幕阅读器会使用TTS把内容描述文本转换成语音朗读给视障用户，从而让视障用户也能“看”到图形控件。</p>
+<p>提示：内容描述属性不会显示在屏幕上，不会影响用户界面。</p>
+<p>注意：</p>
+<p>1）装饰性控件（纯粹的装饰没有提供任何内容也没有功能的控件）不应该提供内容描述。装饰性控件提供内容描述会影响用户的浏览效率。另外文本框（EditText）控件不应该提供内容描述属性，应该使用hint属性给用户提供提示语，当编辑框内没有内容时hint属性会已灰色显示，让用户知道应该输入什么内容。</p>
+<p>2）当控件中使用的是图像文本时，也应该提供内容描述，且内容描述尽量与显示的图像文本一致。图像文本就是使用文本生成的图片，例如有文字“Hello World！”，通过图像工具生成为图片并作为一个按钮的显示内容。</p>
+<p>3）现在一些APP中的按钮（Button）、文本框（TextView）使用一些符号作为显示内容，如箭头符号。这时候最好也为控件添加内容描述属性，因为很多特殊的符号屏幕阅读器无法朗读，用户就无法知道控件的作用。</p>
+<p>下面用代码展示如何添加内容描述：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;ImageButton</span><br><span class="line">    android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">    android:layout_height=<span class="string">"30dp"</span></span><br><span class="line">    android:layout_margin=<span class="string">"5dp"</span></span><br><span class="line">    android:src=<span class="string">"@drawable/search_icon</span></span><br><span class="line"><span class="string">    android:contentDescription="</span>搜索<span class="string">"/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果用户在正常使用应用的过程中，应用中的按钮或其他控件的功能会发生改变（例如，一个按钮从播放变为暂停），保证按钮的android:contentDescription会相应改变。下面演示如何在代码中改变内容描述属性：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ButtonplayButton = (Button) findViewById(R.id.play_button);</span><br><span class="line">playButton.setContentDescription(<span class="string">"暂停"</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-保证基于焦点的导航"><a href="#4-保证基于焦点的导航" class="headerlink" title="4   保证基于焦点的导航"></a>4   保证基于焦点的导航</h2><p>保证用户在使用基于硬件或软件定向控制（D-pads，轨迹球，键盘和导航手势）时，可以导航屏幕布局。在一些情况下，需要保证用户界面可聚焦 ，或者改变焦点顺序使用户交互更具逻辑性。要让控件可聚焦需要把控件的android:focusable和android:focusableInTouchMode属性设置为true。如果一个可操作的控件元素无法通过定向导航聚焦到，通过定向导航访问用户界面的用户就无法使用这些控件的功能，例如键盘用户、屏幕阅读器用户等。</p>
+<p>下面为没有焦点的自定义视图（CustomView）添加焦点：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;CustomView</span><br><span class="line">    android:layout_width=“match_parent”</span><br><span class="line">    android:layout_height=“50dp”</span><br><span class="line">    android:layout_margin=“10dp”</span><br><span class="line">    android:focusable=“<span class="literal">true</span>”</span><br><span class="line">    android:focusableInTouchMode=“<span class="literal">true</span>”/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果想改变焦点顺序可以通过android:nextFocusUPandroid:nextFocusDown android:nextFocusLeft android:nextFocusRight这一组属性来完成，如果想改变无障碍焦点的焦点顺序可以通过android:accessibilityTraversalBefore和android:accessibilityTraversalAfter属性来完成。下面的布局修改了焦点顺序，修改之后的焦点顺序是先访问到“Hello”后访问到World”：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;RelativeLayout</span><br><span class="line">    android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">    android:layout_height=<span class="string">"match_parent"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;TextView</span><br><span class="line">        android:layout_width=<span class="string">"wrap_content"</span></span><br><span class="line">        android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">        android:layout_margin=<span class="string">"10dp"</span></span><br><span class="line">        android:text=<span class="string">"Hello"</span></span><br><span class="line">        android:id=<span class="string">"@+id/hello"</span></span><br><span class="line">        android:layout_centerInParent=<span class="string">"true"</span></span><br><span class="line">        android:accessibilityTraversalBefore=<span class="string">"@+id/world"</span>/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;TextView</span><br><span class="line">        android:layout_width=<span class="string">"wrap_content"</span></span><br><span class="line">        android:layout_height=<span class="string">"wrap_content"</span></span><br><span class="line">        android:layout_margin=<span class="string">"10dp"</span></span><br><span class="line">        android:text=<span class="string">"World"</span></span><br><span class="line">        android:id=<span class="string">"@+id/world"</span></span><br><span class="line">        android:layout_above=<span class="string">"@id/hello"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/RelativeLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-纯音频反馈替代"><a href="#5-纯音频反馈替代" class="headerlink" title="5   纯音频反馈替代"></a>5   纯音频反馈替代</h2><p>音频反馈必须有第二种反馈机制来支持听障用户的使用。例如，消息铃声作为系统通知必须伴随震动反馈（如果可能的话）或其他视觉警告，如灯光闪烁。语音通话的通知不应该仅提供声音提示，还应该提供震动反馈、LED灯光闪烁，听障用户才能通过震动和灯光知道有语音通话。</p>
+<h2 id="6-视频播放和字幕"><a href="#6-视频播放和字幕" class="headerlink" title="6   视频播放和字幕"></a>6   视频播放和字幕</h2><p>如果应用程序提供视频播放，必须为聋人和重听用户提供字幕和注释来帮助他们理解。视频播放控件必须明确说明字幕是否可用，并提供简单的方式启用字幕。</p>
+<h2 id="7-自定义视图控件"><a href="#7-自定义视图控件" class="headerlink" title="7   自定义视图控件"></a>7   自定义视图控件</h2><p>如果为应用程序创建了自定义界面控件，为自定义视图实现无障碍接口并提供内容描述。对于需要与android最低版本1.6保持一致性的自定义控件，使用支持库（Support Library）实现最新的无障碍特性。自定义控件可以通过onInitializeAccessibilityEvent()和onInitializeAccessibilityNodeInfo()两个方法设置控件类型、状态等无障碍属性。下面的代码简单演示自定义视图添加无障碍朗读文本：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">public class CustomView extendsView&#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onInitializeAccessibilityEvent(AccessibilityEventevent) &#123;</span><br><span class="line">        super.onInitializeAccessibilityEvent(event);</span><br><span class="line">        //获取当前显示的文本</span><br><span class="line">        String text = getDisplayText();</span><br><span class="line">        //设置内容描述</span><br><span class="line">        <span class="keyword">if</span> (text.length() &gt; 0) &#123;</span><br><span class="line">            event.getText().add(text);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfoinfo) &#123;</span><br><span class="line">        super.onInitializeAccessibilityNodeInfo(info);</span><br><span class="line">        //获取显示的文本</span><br><span class="line">        String text = getDisplayText();</span><br><span class="line">        //设置内容描述属性</span><br><span class="line">        <span class="keyword">if</span> (text.length() &gt; 0) &#123;</span><br><span class="line">            info.setText(text);</span><br><span class="line">            info.setContentDescription(text);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //通过此方法获取当前显示的文本内容</span><br><span class="line">    private String <span class="function"><span class="title">getDisplayText</span></span>() &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-自定义点击处理"><a href="#8-自定义点击处理" class="headerlink" title="8   自定义点击处理"></a>8   自定义点击处理</h2><p>如果应用中的控件操作手势特殊，例如使用onTouchEvent(MotionEvent)监听MotionEvent.ACTION_DOWN和MotionEvent.ACTION_UP ，并作为点击事件对待，开发者必须触发一个等效于点击的AccessibilityEvent，可以通过sendAccessibilityEvent()方法发送无障碍事件，并为用户无障碍服务提供一种方式模拟执行这项操作。例如调用performClick()方法模拟点击或通过performAccessibilityAction()方法模拟其他操作。</p>
+<h2 id="9-高视觉或复杂视觉交互的自定义控件"><a href="#9-高视觉或复杂视觉交互的自定义控件" class="headerlink" title="9   高视觉或复杂视觉交互的自定义控件"></a>9   高视觉或复杂视觉交互的自定义控件</h2><p>如果应用程序中包含具有高视觉特性的自定义控件（例如日历控件），或提供复杂或非标准视觉交互的自定义控件，默认无障碍服务处理不会为用户提供充足的内容描述或用户很难操作控件，使用AccessibilityNodeProvider为自定义控件提供虚拟视图层次，AccessibilityNodeProvider允许无障碍服务为用户提供简化交互模型、提供足够的信息。如果要在低版本中使用虚拟视图可以使用支持库中的ExploreByTouchHelper创建虚拟视图。如果该方式不可行，考虑提供一个无障碍的替代视图。</p>
+<h2 id="10临时或自我隐藏控件和通知"><a href="#10临时或自我隐藏控件和通知" class="headerlink" title="10临时或自我隐藏控件和通知"></a>10临时或自我隐藏控件和通知</h2><p>避免使用一段时间之后，变暗或消失的用户界面控件。如果该功能对应用很重要，为该功能提供一个替代的交互方式。例如视频播放时，一段时间会隐藏的操作控制，应该提供一直存在的操作，如提供操作菜单。</p>
+<h2 id="11控件大小和小控件组"><a href="#11控件大小和小控件组" class="headerlink" title="11控件大小和小控件组"></a>11控件大小和小控件组</h2><p>无障碍标准中对控件的最小尺寸有要求，要求不小鱼48dp，我们可以通过android:minWidth和android:minHeight属性设置最小宽度和最小高度。如果传递相关联信息的控件组中的控件比推荐的触摸尺寸小，可以考虑使用ViewGroup将这些控件组合起来，并使用android:contentDescription为该组合提供内容描述。</p>
+<h2 id="12测试"><a href="#12测试" class="headerlink" title="12测试"></a>12测试</h2><p>使用定向控制导航浏览android应用，和使用TalkBack提供的非视觉导航来测试无障碍性能。</p>
+<p>以上内容转载自微信公众号“无障碍实验室”，点击<a href="http://mp.weixin.qq.com/s?__biz=MzI4NTA0NDIwNQ==&mid=2247483876&idx=1&sn=0efd3903d477f7004cd5f5bd2f57109c&chksm=ebf37d66dc84f470cef8c32cdde978fee82d56564bbca7c27aa3bed5bfa54699f5e4b6684826&mpshare=1&scene=23&srcid=0817fQlOCXLzNePk6plKx495&sharer_sharetime=1597633752671&sharer_shareid=98ba61eed92e31369a3398e3495c0e72#rd" target="_blank" rel="noopener">阅读原文</a>或添加公众号“无障碍实验室”可查看更多内容。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Fancj
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/07/07/Android%E6%97%A0%E9%9A%9C%E7%A2%8D%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E9%93%81%E8%A7%8412%E6%9D%A1/" title="Android无障碍应用开发铁规12条">http://yoursite.com/2020/07/07/Android%E6%97%A0%E9%9A%9C%E7%A2%8D%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E9%93%81%E8%A7%8412%E6%9D%A1/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/03/21/%E6%8E%A7%E5%88%B6%E5%8F%B0%E4%BA%94%E5%AD%90%E6%A3%8B/" rel="next" title="控制台五子棋">
+                  <i class="fa fa-chevron-left"></i> 控制台五子棋
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Fancj</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fancj</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
