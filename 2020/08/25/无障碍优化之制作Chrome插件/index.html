@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="本篇文章将讲解如何制作Google Chrome插件,通过浏览器插件的方式来改造网页的无障碍问题，使视障用户能更加轻松的上网。">
+<meta name="keywords" content="web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="无障碍优化之制作Chrome插件">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;08&#x2F;25&#x2F;%E6%97%A0%E9%9A%9C%E7%A2%8D%E4%BC%98%E5%8C%96%E4%B9%8B%E5%88%B6%E4%BD%9CChrome%E6%8F%92%E4%BB%B6&#x2F;index.html">
+<meta property="og:site_name" content="Fancj的主页">
+<meta property="og:description" content="本篇文章将讲解如何制作Google Chrome插件,通过浏览器插件的方式来改造网页的无障碍问题，使视障用户能更加轻松的上网。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-25T09:52:58.794Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/25/%E6%97%A0%E9%9A%9C%E7%A2%8D%E4%BC%98%E5%8C%96%E4%B9%8B%E5%88%B6%E4%BD%9CChrome%E6%8F%92%E4%BB%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>无障碍优化之制作Chrome插件 | Fancj的主页</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fancj的主页</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">只是为了好玩</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/25/%E6%97%A0%E9%9A%9C%E7%A2%8D%E4%BC%98%E5%8C%96%E4%B9%8B%E5%88%B6%E4%BD%9CChrome%E6%8F%92%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Fancj">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fancj的主页">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          无障碍优化之制作Chrome插件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-25 17:09:45 / 修改时间：17:52:58" itemprop="dateCreated datePublished" datetime="2020-08-25T17:09:45+08:00">2020-08-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本篇文章将讲解如何制作Google Chrome插件,通过浏览器插件的方式来改造网页的无障碍问题，使视障用户能更加轻松的上网。<a id="more"></a></p>
+<p>下面就以一个简单的Chrome插件为例，带领大家了解如何编写无障碍插件，改变页面元素属性，从而让网页元素达到无障碍的效果。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>首先我们新建一个文件夹，命名为“demo”。然后在demo文件夹内新建三个文件，分别是：manifest.json、background.html、Accessibility.js。</p>
+<h2 id="manifest-json"><a href="#manifest-json" class="headerlink" title="manifest.json"></a>manifest.json</h2><p>此文件为清单文件，每个Google Chrome插件都应包含该文件。清单内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"background"</span>: &#123;</span><br><span class="line">        <span class="string">"page"</span>: <span class="string">"background.html"</span> //后台加载的HTML文件</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"content_scripts"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">"js"</span>: [</span><br><span class="line">                <span class="string">"accessibility.js"</span></span><br><span class="line">            ], //需要执行的js文件</span><br><span class="line">            <span class="string">"matches"</span>: [</span><br><span class="line">                <span class="string">"http://*/*"</span>,</span><br><span class="line">                <span class="string">"https://*/*"</span>,</span><br><span class="line">                <span class="string">"ftp://*/*"</span>,</span><br><span class="line">                <span class="string">"file://*.*"</span></span><br><span class="line">            ] //匹配的网址</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"name"</span>: <span class="string">"无障碍插件"</span>, //插件的名称</span><br><span class="line">    <span class="string">"version"</span>: <span class="string">"1.1.0"</span>, //插件的版本号</span><br><span class="line">    <span class="string">"description"</span>: <span class="string">"这是一个无障碍插件"</span>, //插件的简介</span><br><span class="line">    <span class="string">"manifest_version"</span>: 2 //清单文件的版本号</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="background-html"><a href="#background-html" class="headerlink" title="background.html"></a>background.html</h2><p>此文件为谷歌浏览器后台加载的HTML页面，本插件中主要用于加载Accessibility.js。代码如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;无障碍插件&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span> charset=<span class="string">"utf-8"</span> src=<span class="string">'accessibility.js'</span>&gt;&lt;/script&gt; </span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="accessibility-js"><a href="#accessibility-js" class="headerlink" title="accessibility.js"></a>accessibility.js</h2><p>此文件为我们所要编写的js代码文件，用来改造网页的无障碍问题。下面我们还是以百度作为测试对象，重点来看下js代码文件的内容：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    var host = window.location.host;</span><br><span class="line">    <span class="keyword">if</span> (host === <span class="string">"www.baidu.com"</span>) &#123;//判断下是不是百度首页的网址</span><br><span class="line">        //为百度首页的搜索框添加描述文本</span><br><span class="line">        //使用的是aria-label属性， aria-label 可以给非文本元素添加内容描述，如果一个非文本元素需要让屏幕阅读器用户知道元素的功能、传达的信息，需要给元素添加替代文本，如图形按钮、编辑框、组合框等，可以通过aria-label属性给元素提供适当的替代文本。</span><br><span class="line">        try &#123;</span><br><span class="line">            var kwElt = document.getElementById(<span class="string">"kw"</span>);</span><br><span class="line">            kwElt.setAttribute(<span class="string">'aria-label'</span>, <span class="string">'请键入搜索关键词'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        catch (err) &#123; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (host === <span class="string">"passport.baidu.com"</span>) &#123;//判断下是不是百度注册页的网址</span><br><span class="line">        //为百度注册页面的<span class="string">"登陆"</span>链接设置tab焦点，并且设置控件的角色为“链接”</span><br><span class="line">        //使用的是：tabindex属性，tabindex属性可为元素添加/忽略焦点，role属性 可设置元素的角色。</span><br><span class="line">        try &#123;</span><br><span class="line">            var loginbtn = document.getElementById(<span class="string">"login_btn"</span>);</span><br><span class="line">            loginbtn.setAttribute(<span class="string">'tabindex'</span>, <span class="string">'0'</span>);</span><br><span class="line">            loginbtn.setAttribute(<span class="string">'role'</span>, <span class="string">'link'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        catch (err) &#123; &#125;</span><br><span class="line">        //为百度注册页面的“百度帐号智能客服”添加标签</span><br><span class="line">        //使用的是aria-label属性， aria-label 可以给非文本元素添加内容描述，如果一个非文本元素需要让屏幕阅读器用户知道元素的功能、传达的信息，需要给元素添加替代文本，如图形按钮、编辑框、组合框等，可以通过aria-label属性给元素提供适当的替代文本。</span><br><span class="line">        try &#123;</span><br><span class="line">            var elts = document.getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line">            <span class="keyword">for</span> (i = 0; i &lt; elts.length; ++i) &#123;</span><br><span class="line">                <span class="keyword">if</span> (elts[i].getAttribute(<span class="string">'class'</span>) === <span class="string">'mod-new-reg-service'</span>) &#123;</span><br><span class="line">                    elts[i].setAttribute(<span class="string">'aria-label'</span>, <span class="string">'百度帐号智能客服'</span>);</span><br><span class="line">                    <span class="built_in">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        catch (err) &#123; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>到这里我们插件就编写完成了。接下来需要将插件加载到谷歌浏览器中才能使用。不过，在加载插件之前，我们先来体验下，百度的搜索框、登陆以及百度帐号智能客服控件元素的无障碍体验：</p>
+<p>1.打开百度首页，使用tab聚焦到搜索输入框，此时屏幕阅读器朗读为：可编辑文本。开发者没有对这个搜索框添加描述属性，视障用户很难理解这个编辑框的作用。</p>
+<p>2.在百度首页点击“登陆”-&gt;“立即注册”进入注册页面，尝试使用tab键聚焦“登陆”链接，结果发现登陆链接没有tab焦点，我们无法使用tab键聚焦到登陆链接上。</p>
+<p>3.在百度首页点击“登陆”-&gt;“立即注册”进入注册页面，使用tab聚焦到“百度帐号智能客服”链接上，结果发现“百度帐号智能客服”没有标签，只朗读为“链接”。我们加载这个插件后再试试效果：</p>
+<p>打开谷歌浏览器，进入扩展程序页面，选中“开发者模式”，然后点击“加载已解压的扩展程序”按钮，弹出浏览页面，浏览到“demo”文件夹，将其选中。这样我们的插件也就加载好了。接下来我们来试试效果：</p>
+<p>1.打开百度首页，tab聚焦到搜索输入框，此时屏幕阅读器朗读为：“请键入搜索关键词” 可编辑文本。</p>
+<p>2.在百度首页点击“登陆”-&gt;“立即注册”进入注册页面，使用tab可聚焦到“登陆”链接。</p>
+<p>3.在百度首页点击“登陆”-&gt;“立即注册”进入注册页面，使用tab键聚焦到“百度帐号智能客服”，发现该链接已经正确的朗读为“百度帐号智能客服”。</p>
+<p>通过这样的方式，我们可以给一些无障碍比较不好的网页添加无障碍属性，使视障人士能更好的上网。</p>
+<p>好了，到这里今天的分享就结束了，最后还是希望广大网页开发工程师们能够将无障碍属性应用到实际开发工作当中，时时拥有无障碍的意识，让障碍用户也能轻松无障碍上网。</p>
+<p>以上内容转载自公众号“无障碍实验室”,点击<a href="https://mp.weixin.qq.com/s?__biz=MzI4NTA0NDIwNQ==&mid=2247484700&idx=1&sn=3d009a768458d65198d4d84d2f2534c8&chksm=ebf3799edc84f088265abc36e0064054ad8a6a1dad0d892ec8b486d14c5c5b9199775111a8c7&mpshare=1&scene=23&srcid=0817YviY78FEiKjrTyhfdWkw&sharer_sharetime=1597635796767&sharer_shareid=98ba61eed92e31369a3398e3495c0e72#rd" target="_blank" rel="noopener">阅读原文</a>或添加公众号“无障碍实验室”可查看更多内容。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Fancj
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/08/25/%E6%97%A0%E9%9A%9C%E7%A2%8D%E4%BC%98%E5%8C%96%E4%B9%8B%E5%88%B6%E4%BD%9CChrome%E6%8F%92%E4%BB%B6/" title="无障碍优化之制作Chrome插件">http://yoursite.com/2020/08/25/%E6%97%A0%E9%9A%9C%E7%A2%8D%E4%BC%98%E5%8C%96%E4%B9%8B%E5%88%B6%E4%BD%9CChrome%E6%8F%92%E4%BB%B6/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/web/" rel="tag"># web</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/07/07/Android%E6%97%A0%E9%9A%9C%E7%A2%8D%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E9%93%81%E8%A7%8412%E6%9D%A1/" rel="next" title="Android无障碍应用开发铁规12条">
+                  <i class="fa fa-chevron-left"></i> Android无障碍应用开发铁规12条
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Fancj</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fancj</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
